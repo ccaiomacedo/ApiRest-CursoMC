@@ -1,10 +1,9 @@
 package com.caiomacedo.cursomc.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +13,9 @@ public class Category implements Serializable {//serve para dizer que o objeto p
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
 
     public Category(){
 
@@ -40,6 +42,14 @@ public class Category implements Serializable {//serve para dizer que o objeto p
         this.nome = nome;
     }
 
+    public List<Product> getList() {
+        return products;
+    }
+
+    public void setList(List<Product> list) {
+        this.products = list;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,3 +63,4 @@ public class Category implements Serializable {//serve para dizer que o objeto p
         return Objects.hash(id);
     }
 }
+
