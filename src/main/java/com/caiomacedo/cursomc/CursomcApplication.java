@@ -43,8 +43,5 @@ public class CursomcApplication implements CommandLineRunner {// serve para exec
 
 		cr.saveAll(Arrays.asList(cat1,cat2));
 		pr.saveAll(Arrays.asList(p1,p2,p3));
-
-
-
 	}
 }

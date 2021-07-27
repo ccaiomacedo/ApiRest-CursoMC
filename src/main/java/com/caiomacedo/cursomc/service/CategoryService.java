@@ -1,11 +1,13 @@
-package com.caiomacedo.cursomc.service;
+ package com.caiomacedo.cursomc.service;
 
-import com.caiomacedo.cursomc.domain.Category;
-import com.caiomacedo.cursomc.repository.CategoryRepository;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import com.caiomacedo.cursomc.domain.Category;
+import com.caiomacedo.cursomc.repository.CategoryRepository;
+import com.caiomacedo.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoryService {
@@ -14,6 +16,7 @@ public class CategoryService {
 
     public Category find(Integer id){
         Optional<Category> obj =cr.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+        		"Objeto não encontrado! Id: "+id+" , Tipo: "+Category.class.getName()));
     }
 }

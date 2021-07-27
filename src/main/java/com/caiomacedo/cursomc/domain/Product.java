@@ -1,5 +1,7 @@
 package com.caiomacedo.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,10 +15,11 @@ public class Product implements Serializable {//serve para dizer que o objeto po
     private String name;
     private Double price;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(name="PRODUCT_CATEGORY",//essa tabela que vai fazer o muitos pra muitos
             joinColumns = @JoinColumn(name="product_id")//chave estrangeira
-    ,inverseJoinColumns = @JoinColumn(name = "category_id"))//chave estrangeira que se referencia a categoria
+            ,inverseJoinColumns = @JoinColumn(name = "category_id"))//chave estrangeira que se referencia a categoria
 
 
     private List<Category> categories = new ArrayList<>();
