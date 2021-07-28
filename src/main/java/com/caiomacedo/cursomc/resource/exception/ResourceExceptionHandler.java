@@ -12,6 +12,7 @@ import com.caiomacedo.cursomc.services.exceptions.ObjectNotFoundException;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
+	//essa classe aqui serve pra mostrar a exceção que deu quando manda uma requisição que n foi encontrada
 	@ExceptionHandler(ObjectNotFoundException.class)
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e,HttpServletRequest request){
 	
