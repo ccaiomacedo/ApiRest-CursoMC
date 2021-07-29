@@ -1,9 +1,10 @@
 package com.caiomacedo.cursomc.repository;
 
-import com.caiomacedo.cursomc.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.caiomacedo.cursomc.domain.Client;
+
 @Repository
-public interface ProductRepository extends JpaRepository<Product,Integer> {
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 }

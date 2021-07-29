@@ -7,12 +7,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.caiomacedo.cursomc.domain.Address;
 import com.caiomacedo.cursomc.domain.Category;
 import com.caiomacedo.cursomc.domain.City;
+import com.caiomacedo.cursomc.domain.Client;
 import com.caiomacedo.cursomc.domain.Product;
 import com.caiomacedo.cursomc.domain.State;
+import com.caiomacedo.cursomc.domain.enums.ClientType;
+import com.caiomacedo.cursomc.repository.AddressRepository;
 import com.caiomacedo.cursomc.repository.CategoryRepository;
 import com.caiomacedo.cursomc.repository.CityRepository;
+import com.caiomacedo.cursomc.repository.ClientRepository;
 import com.caiomacedo.cursomc.repository.ProductRepository;
 import com.caiomacedo.cursomc.repository.StateRepository;
 
@@ -29,6 +34,12 @@ public class CursomcApplication implements CommandLineRunner {// serve para exec
 
 	@Autowired
 	CityRepository cir;
+	
+	@Autowired
+	AddressRepository ar;
+	
+	@Autowired
+	ClientRepository clr;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -66,7 +77,17 @@ public class CursomcApplication implements CommandLineRunner {// serve para exec
 
 		sr.saveAll(Arrays.asList(est1, est2));
 		cir.saveAll(Arrays.asList(c1, c2, c3));
+
+		Client cli1 = new Client(null, "Maria Silva", "maria@gmail.com", "363453453", ClientType.PESSOAFISICA);
+
+		cli1.getTelefone().addAll(Arrays.asList("434242423", "42423424"));
+
+		Address e1 = new Address(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
+		Address e2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "4234242", cli1, c2);
+
+		cli1.getAddress().addAll(Arrays.asList(e1, e2));
 		
-		
+		clr.saveAll(Arrays.asList(cli1));
+		ar.saveAll(Arrays.asList(e1,e2));
 	}
 }
