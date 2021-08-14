@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +30,8 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	private String cpfOuCnpj;
 	private Integer tipo;
 
-	@OneToMany(mappedBy = "client")
+	
+	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<Address> address = new ArrayList<>();
 
 	@ElementCollection
