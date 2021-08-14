@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 public class City implements Serializable {//serve para dizer que o objeto pode ser convertido em bytes
     private static final long serialVersionUID=1l;
 
+    //teste
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
