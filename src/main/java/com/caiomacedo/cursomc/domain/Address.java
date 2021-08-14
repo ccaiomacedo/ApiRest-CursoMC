@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Address implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
 	private static final long serialVersionUID = 1l;
@@ -22,6 +24,7 @@ public class Address implements Serializable {// serve para dizer que o objeto p
 	private String bairro;
 	private String cep;
 
+	@JsonIgnore
 	@ManyToOne()
 	@JoinColumn(name="client_id")
 	private Client client;

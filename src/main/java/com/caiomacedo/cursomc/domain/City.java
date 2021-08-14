@@ -8,17 +8,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 @Entity
 public class City implements Serializable {//serve para dizer que o objeto pode ser convertido em bytes
     private static final long serialVersionUID=1l;
 
-    //teste teste 2
+   
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 
-	
 	@ManyToOne
 	@JoinColumn(name="state_id")
 	private State state;

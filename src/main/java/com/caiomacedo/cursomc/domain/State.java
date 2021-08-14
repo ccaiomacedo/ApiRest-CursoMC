@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class State implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
 	private static final long serialVersionUID = 1l;
@@ -18,6 +20,7 @@ public class State implements Serializable {// serve para dizer que o objeto pod
 	private Integer id;
 	private String nome;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "state")
 	private List<City> cities = new ArrayList<>();
 
