@@ -33,14 +33,17 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
-	@JsonIgnore //mais pra frente tirar pra ver da colé 
+
+	@JsonIgnore // mais pra frente tirar pra ver da colé
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<Address> address = new ArrayList<>();
 
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefone = new HashSet<>();
+
+	@OneToMany(mappedBy = "client")
+	private List<Request> pedidos = new ArrayList<>();
 
 	public Client() {
 
@@ -83,8 +86,20 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 		return cpfOuCnpj;
 	}
 
+	public void setTipo(Integer tipo) {
+		this.tipo = tipo;
+	}
+
 	public void setCpfOuCnpj(String cpfOuCnpj) {
 		this.cpfOuCnpj = cpfOuCnpj;
+	}
+
+	public List<Request> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Request> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	public ClientType getTipo() {

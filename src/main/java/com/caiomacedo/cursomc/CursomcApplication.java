@@ -1,5 +1,6 @@
 package com.caiomacedo.cursomc;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +9,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.caiomacedo.cursomc.domain.Address;
+import com.caiomacedo.cursomc.domain.BilletPayment;
+import com.caiomacedo.cursomc.domain.CardPayment;
 import com.caiomacedo.cursomc.domain.Category;
 import com.caiomacedo.cursomc.domain.City;
 import com.caiomacedo.cursomc.domain.Client;
+import com.caiomacedo.cursomc.domain.Payment;
 import com.caiomacedo.cursomc.domain.Product;
+import com.caiomacedo.cursomc.domain.Request;
 import com.caiomacedo.cursomc.domain.State;
 import com.caiomacedo.cursomc.domain.enums.ClientType;
+import com.caiomacedo.cursomc.domain.enums.PaymentStatus;
 import com.caiomacedo.cursomc.repository.AddressRepository;
 import com.caiomacedo.cursomc.repository.CategoryRepository;
 import com.caiomacedo.cursomc.repository.CityRepository;
 import com.caiomacedo.cursomc.repository.ClientRepository;
+import com.caiomacedo.cursomc.repository.PaymentRepository;
 import com.caiomacedo.cursomc.repository.ProductRepository;
+import com.caiomacedo.cursomc.repository.RequestRepository;
 import com.caiomacedo.cursomc.repository.StateRepository;
 
 @SpringBootApplication
@@ -34,12 +42,18 @@ public class CursomcApplication implements CommandLineRunner {// serve para exec
 
 	@Autowired
 	CityRepository cir;
-	
+
 	@Autowired
 	AddressRepository ar;
-	
+
 	@Autowired
 	ClientRepository clr;
+
+	@Autowired
+	RequestRepository rr;
+
+	@Autowired
+	PaymentRepository payr;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -86,8 +100,23 @@ public class CursomcApplication implements CommandLineRunner {// serve para exec
 		Address e2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "4234242", cli1, c2);
 
 		cli1.getAddress().addAll(Arrays.asList(e1, e2));
-		
+
 		clr.saveAll(Arrays.asList(cli1));
-		ar.saveAll(Arrays.asList(e1,e2));
+		ar.saveAll(Arrays.asList(e1, e2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		Request ped1 = new Request(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Request ped2 = new Request(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+
+		Payment pagto1 = new CardPayment(null, PaymentStatus.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+		Payment pagto2 = new BilletPayment(null, PaymentStatus.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
+		ped2.setPagamento(pagto2);
+
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+
+		rr.saveAll(Arrays.asList(ped1, ped2));
+		payr.saveAll(Arrays.asList(pagto1, pagto2));
 	}
 }
