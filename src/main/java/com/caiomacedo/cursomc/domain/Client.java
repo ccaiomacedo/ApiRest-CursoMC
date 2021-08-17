@@ -42,6 +42,7 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefone = new HashSet<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Orders> pedidos = new ArrayList<>();
 

@@ -1,5 +1,7 @@
 package com.caiomacedo.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -9,6 +11,7 @@ import java.util.Objects;
 public class OrderItem implements Serializable {//serve para dizer que o objeto pode ser convertido em bytes
     private static final long serialVersionUID=1l;
 
+    @JsonIgnore
     @EmbeddedId//passando como chave primaria um atributo composto
     private OrderItemPK id = new OrderItemPK(); // o id é um atributo composto
 
@@ -28,9 +31,11 @@ public class OrderItem implements Serializable {//serve para dizer que o objeto 
         this.preco = preco;
     }
 
+    @JsonIgnore
     public Orders getPedido(){
         return id.getPedido();
     }
+
 
     public Product getProduto(){
         return id.getProduto();

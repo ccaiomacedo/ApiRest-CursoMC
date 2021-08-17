@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.caiomacedo.cursomc.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // forma de mapear uma herança
@@ -21,6 +22,7 @@ public abstract class Payment implements Serializable {// serve para dizer que o
 	private Integer id;
 	private Integer estado;
 
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId // para o id de pedidos ser o mesmo que o de pagamento

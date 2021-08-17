@@ -1,5 +1,7 @@
 package com.caiomacedo.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,6 +16,8 @@ public class Orders implements Serializable {// serve para dizer que o objeto po
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")//formatando a hora pra n ficar em milisegundos
 	private Date instante;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") // pra n dar o erro de entidade transiente

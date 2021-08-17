@@ -17,6 +17,6 @@ public class CategoryService {
     public Category find(Integer id){
         Optional<Category> obj =cr.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(// se n receber um objeto existente, vai retornar isso   
-        		"Objeto não encontrado! Id: "+id+" , Tipo: "+Category.class.getName()));
+        		"Objeto não encontrado! Id: "+id+" , Tipo: "+Category.class.getName()));//tipo retorna o nome da classe
     }
 }

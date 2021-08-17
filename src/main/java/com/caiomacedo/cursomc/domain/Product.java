@@ -25,6 +25,7 @@ public class Product implements Serializable {// serve para dizer que o objeto p
 			, inverseJoinColumns = @JoinColumn(name = "category_id")) // chave estrangeira que se referencia a categoria
 	private List<Category> categories = new ArrayList<>();
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<OrderItem> itens = new HashSet<>();
 
@@ -38,6 +39,7 @@ public class Product implements Serializable {// serve para dizer que o objeto p
 		this.price = price;
 	}
 
+	@JsonIgnore
 	public List<Orders> getPedidos(){
 		List<Orders> list = new ArrayList<>();
 		for (OrderItem x :itens){
