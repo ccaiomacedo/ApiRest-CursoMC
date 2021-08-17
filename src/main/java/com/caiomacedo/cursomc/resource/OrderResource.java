@@ -21,7 +21,7 @@ public class OrderResource {
     private OrderService os;
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){//para o spring receber o id da url
+    public ResponseEntity<Orders> find(@PathVariable Integer id){//para o spring receber o id da url
         //o responseEntity é pq ele pode retornar qualquer tipo
         Orders obj = os.find(id);
         return ResponseEntity.ok().body(obj); // está retornando um objeto

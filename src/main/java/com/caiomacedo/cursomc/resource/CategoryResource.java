@@ -18,7 +18,7 @@ public class CategoryResource {
     private CategoryService cs;
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){//para o spring receber o id da url
+    public ResponseEntity<Category> find(@PathVariable Integer id){//para o spring receber o id da url
         //o responseEntity é pq ele pode retornar qualquer tipo
         Category obj = cs.find(id);
         return ResponseEntity.ok().body(obj); // está retornando um objeto
@@ -31,4 +31,12 @@ public class CategoryResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//o fromCurrent... ele pega a url, e o path passa o id
         return ResponseEntity.created(uri).build();
     }
+
+    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(@RequestBody Category obj,@PathVariable Integer id){
+        obj.setId(id); //seta o id que existe para o que foi passado
+        obj = cs.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+
 }

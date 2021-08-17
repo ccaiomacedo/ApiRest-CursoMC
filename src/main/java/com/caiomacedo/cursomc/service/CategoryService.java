@@ -24,4 +24,9 @@ public class CategoryService {
         obj.setId(null);
         return cr.save(obj);
     }
+
+    public Category update(Category obj){
+        find(obj.getId());
+        return cr.save(obj);
+    }
 }

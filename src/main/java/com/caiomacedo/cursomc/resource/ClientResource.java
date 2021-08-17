@@ -19,7 +19,7 @@ public class ClientResource {
     private ClientService cs;
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){//para o spring receber o id da url
+    public ResponseEntity<Client> find(@PathVariable Integer id){//para o spring receber o id da url
         //o responseEntity é pq ele pode retornar qualquer tipo
         Client obj = cs.find(id);
         return ResponseEntity.ok().body(obj); // está retornando um objeto
