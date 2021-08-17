@@ -3,31 +3,15 @@ package com.caiomacedo.cursomc;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
+import com.caiomacedo.cursomc.domain.*;
+import com.caiomacedo.cursomc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.caiomacedo.cursomc.domain.Address;
-import com.caiomacedo.cursomc.domain.BilletPayment;
-import com.caiomacedo.cursomc.domain.CardPayment;
-import com.caiomacedo.cursomc.domain.Category;
-import com.caiomacedo.cursomc.domain.City;
-import com.caiomacedo.cursomc.domain.Client;
-import com.caiomacedo.cursomc.domain.Payment;
-import com.caiomacedo.cursomc.domain.Product;
-import com.caiomacedo.cursomc.domain.Request;
-import com.caiomacedo.cursomc.domain.State;
 import com.caiomacedo.cursomc.domain.enums.ClientType;
 import com.caiomacedo.cursomc.domain.enums.PaymentStatus;
-import com.caiomacedo.cursomc.repository.AddressRepository;
-import com.caiomacedo.cursomc.repository.CategoryRepository;
-import com.caiomacedo.cursomc.repository.CityRepository;
-import com.caiomacedo.cursomc.repository.ClientRepository;
-import com.caiomacedo.cursomc.repository.PaymentRepository;
-import com.caiomacedo.cursomc.repository.ProductRepository;
-import com.caiomacedo.cursomc.repository.RequestRepository;
-import com.caiomacedo.cursomc.repository.StateRepository;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {// serve para executar uma ação quando a aplicação começar
@@ -50,10 +34,13 @@ public class CursomcApplication implements CommandLineRunner {// serve para exec
 	ClientRepository clr;
 
 	@Autowired
-	RequestRepository rr;
+	OrderRepository or;
 
 	@Autowired
 	PaymentRepository payr;
+
+	@Autowired
+	OrderItemRepository oir;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -106,17 +93,31 @@ public class CursomcApplication implements CommandLineRunner {// serve para exec
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Request ped1 = new Request(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
-		Request ped2 = new Request(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
+		Orders ped1 = new Orders(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
+		Orders ped2 = new Orders(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
 
 		Payment pagto1 = new CardPayment(null, PaymentStatus.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
 		Payment pagto2 = new BilletPayment(null, PaymentStatus.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
 		ped2.setPagamento(pagto2);
 
-		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2)); //associação do cliente com os pedidos
 
-		rr.saveAll(Arrays.asList(ped1, ped2));
+		or.saveAll(Arrays.asList(ped1, ped2));
 		payr.saveAll(Arrays.asList(pagto1, pagto2));
+
+		OrderItem ip1 = new OrderItem(ped1,p1,0.00,1,2000.00);
+		OrderItem ip2 = new OrderItem(ped1,p3,0.00,2,80.00);
+		OrderItem ip3 = new OrderItem(ped2,p2,100.00,1,800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		oir.saveAll(Arrays.asList(ip1,ip2,ip3));
+
 	}
 }

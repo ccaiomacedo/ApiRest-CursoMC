@@ -43,7 +43,7 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	private Set<String> telefone = new HashSet<>();
 
 	@OneToMany(mappedBy = "client")
-	private List<Request> pedidos = new ArrayList<>();
+	private List<Orders> pedidos = new ArrayList<>();
 
 	public Client() {
 
@@ -94,11 +94,11 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
-	public List<Request> getPedidos() {
+	public List<Orders> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedidos(List<Request> pedidos) {
+	public void setPedidos(List<Orders> pedidos) {
 		this.pedidos = pedidos;
 	}
 

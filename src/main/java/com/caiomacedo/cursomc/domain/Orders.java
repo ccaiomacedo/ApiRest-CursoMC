@@ -2,18 +2,13 @@ package com.caiomacedo.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
-public class Request implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
+public class Orders implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
 	private static final long serialVersionUID = 1l;
 
 	@Id
@@ -32,16 +27,27 @@ public class Request implements Serializable {// serve para dizer que o objeto p
 	@JoinColumn(name = "endereco_de_entrega_id")
 	private Address enderecoDeEntrega;
 
-	public Request() {
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<OrderItem> itens = new HashSet<>();
+
+	public Orders() {
 
 	}
 
-	public Request(Integer id, Date instante,  Client cliente, Address enderecoDeEntrega) {
+	public Orders(Integer id, Date instante, Client cliente, Address enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.client = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
+	}
+
+	public Set<OrderItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<OrderItem> itens) {
+		this.itens = itens;
 	}
 
 	public Integer getId() {
@@ -100,7 +106,7 @@ public class Request implements Serializable {// serve para dizer que o objeto p
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Request other = (Request) obj;
+		Orders other = (Orders) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

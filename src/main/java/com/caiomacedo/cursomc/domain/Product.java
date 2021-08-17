@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Product implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
@@ -23,6 +25,9 @@ public class Product implements Serializable {// serve para dizer que o objeto p
 			, inverseJoinColumns = @JoinColumn(name = "category_id")) // chave estrangeira que se referencia a categoria
 	private List<Category> categories = new ArrayList<>();
 
+	@OneToMany(mappedBy = "id.produto")
+	private Set<OrderItem> itens = new HashSet<>();
+
 	public Product() {
 
 	}
@@ -31,6 +36,22 @@ public class Product implements Serializable {// serve para dizer que o objeto p
 		this.id = id;
 		this.name = name;
 		this.price = price;
+	}
+
+	public List<Orders> getPedidos(){
+		List<Orders> list = new ArrayList<>();
+		for (OrderItem x :itens){
+			list.add(x.getPedido());
+		}
+		return list;
+	}
+
+	public Set<OrderItem> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<OrderItem> itens) {
+		this.itens = itens;
 	}
 
 	public Integer getId() {

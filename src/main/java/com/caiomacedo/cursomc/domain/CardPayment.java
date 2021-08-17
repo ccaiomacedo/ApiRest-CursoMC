@@ -12,7 +12,7 @@ public class CardPayment extends Payment {
 
 	}
 
-	public CardPayment(Integer id, PaymentStatus estado, Request pedido, Integer numeroDeParcelas) {
+	public CardPayment(Integer id, PaymentStatus estado, Orders pedido, Integer numeroDeParcelas) {
 		super(id, estado, pedido);
 		this.numeroDeParcelas = numeroDeParcelas;
 	}

@@ -16,7 +16,7 @@ public class BilletPayment extends Payment {
 
 	}
 
-	public BilletPayment(Integer id, PaymentStatus estado, Request pedido, Date dataVencimento, Date dataPagamento) {
+	public BilletPayment(Integer id, PaymentStatus estado, Orders pedido, Date dataVencimento, Date dataPagamento) {
 		super(id, estado, pedido);
 		this.dataVencimento = dataVencimento;
 		this.dataPagamento = dataPagamento;

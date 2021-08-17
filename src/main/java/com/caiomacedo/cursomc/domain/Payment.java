@@ -24,13 +24,13 @@ public abstract class Payment implements Serializable {// serve para dizer que o
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId // para o id de pedidos ser o mesmo que o de pagamento
-	private Request pedido;
+	private Orders pedido;
 
 	public Payment() {
 
 	}
 
-	public Payment(Integer id, PaymentStatus estado, Request pedido) {
+	public Payment(Integer id, PaymentStatus estado, Orders pedido) {
 		super();
 		this.id = id;
 		this.estado = estado.getCod();
@@ -53,11 +53,11 @@ public abstract class Payment implements Serializable {// serve para dizer que o
 		this.estado = estado.getCod();
 	}
 
-	public Request getPedido() {
+	public Orders getPedido() {
 		return pedido;
 	}
 
-	public void setPedido(Request pedido) {
+	public void setPedido(Orders pedido) {
 		this.pedido = pedido;
 	}
 
