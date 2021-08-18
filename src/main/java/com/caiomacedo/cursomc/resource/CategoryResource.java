@@ -17,8 +17,8 @@ public class CategoryResource {
     @Autowired
     private CategoryService cs;
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
-    public ResponseEntity<Category> find(@PathVariable Integer id){//para o spring receber o id da url
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)//o value{/id} é pq tem que informar o id através da requisição
+    public ResponseEntity<Category > find(@PathVariable Integer id){//para o spring receber o id da url
         //o responseEntity é pq ele pode retornar qualquer tipo
         Category obj = cs.find(id);
         return ResponseEntity.ok().body(obj); // está retornando um objeto
@@ -36,7 +36,13 @@ public class CategoryResource {
     public ResponseEntity<Void> update(@RequestBody Category obj,@PathVariable Integer id){
         obj.setId(id); //seta o id que existe para o que foi passado
         obj = cs.update(obj);
+        return ResponseEntity.noContent().build();//retorna que deu tudo ok, sem conteúdo
+    }
+    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        cs.delete(id);
         return ResponseEntity.noContent().build();
     }
+
 
 }

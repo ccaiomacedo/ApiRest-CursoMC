@@ -2,7 +2,9 @@
 
 import java.util.Optional;
 
+import com.caiomacedo.cursomc.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.caiomacedo.cursomc.domain.Category;
@@ -28,5 +30,14 @@ public class CategoryService {
     public Category update(Category obj){
         find(obj.getId());
         return cr.save(obj);
+    }
+
+    public void delete(Integer id){
+        find(id);
+        try {
+            cr.deleteById(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos!");
+        }
     }
 }
