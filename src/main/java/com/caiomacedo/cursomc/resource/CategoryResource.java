@@ -1,6 +1,7 @@
 package com.caiomacedo.cursomc.resource;
 
 import com.caiomacedo.cursomc.domain.Category;
+import com.caiomacedo.cursomc.dto.CategoryDTO;
 import com.caiomacedo.cursomc.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -42,6 +45,14 @@ public class CategoryResource {
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         cs.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    @RequestMapping(method = RequestMethod.GET)//o value{/id} é pq tem que informar o id através da requisição
+    public ResponseEntity<List<CategoryDTO>> find(){//para o spring receber o id da url
+        //o responseEntity é pq ele pode retornar qualquer tipo
+        List<Category> list = cs.findAll();
+        List<CategoryDTO> listDto = list.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList());//essa linha converte uma lista pra outra lista
+        return ResponseEntity.ok().body(listDto); // está retornando um objeto
+
     }
 
 

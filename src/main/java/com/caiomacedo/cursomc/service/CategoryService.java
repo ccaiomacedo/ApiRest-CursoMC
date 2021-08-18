@@ -1,5 +1,6 @@
  package com.caiomacedo.cursomc.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.caiomacedo.cursomc.services.exceptions.DataIntegrityException;
@@ -40,4 +41,9 @@ public class CategoryService {
             throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos!");
         }
     }
+
+    public List<Category> findAll(){
+        return cr.findAll();
+    }
+
 }
