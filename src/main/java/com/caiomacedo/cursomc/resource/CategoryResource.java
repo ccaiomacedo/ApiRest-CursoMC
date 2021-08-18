@@ -4,6 +4,7 @@ import com.caiomacedo.cursomc.domain.Category;
 import com.caiomacedo.cursomc.dto.CategoryDTO;
 import com.caiomacedo.cursomc.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,14 +47,26 @@ public class CategoryResource {
         cs.delete(id);
         return ResponseEntity.noContent().build();
     }
-    @RequestMapping(method = RequestMethod.GET)//o value{/id} é pq tem que informar o id através da requisição
-    public ResponseEntity<List<CategoryDTO>> find(){//para o spring receber o id da url
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CategoryDTO>> find(){
         //o responseEntity é pq ele pode retornar qualquer tipo
         List<Category> list = cs.findAll();
         List<CategoryDTO> listDto = list.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList());//essa linha converte uma lista pra outra lista
         return ResponseEntity.ok().body(listDto); // está retornando um objeto
 
     }
+    @RequestMapping(value = "/page",method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoryDTO>> findPage(//o responseEntity é pq ele pode retornar qualquer tipo
+            @RequestParam(value = "page",defaultValue = "0") Integer page,// o RequestParam é pra que eles sejam parametros opcionais
+            @RequestParam(value = "linesPerPage",defaultValue = "24") Integer linesPerpage,
+            @RequestParam(value = "OrderBy",defaultValue = "nome")String orderBy,
+            @RequestParam(value = "direction",defaultValue = "ASC")String direction){
+        Page<Category> list = cs.findPage(page,linesPerpage,orderBy,direction);
+        Page<CategoryDTO> listDto = list.map(obj -> new CategoryDTO(obj));//essa linha converte uma lista pra outra lista
+        return ResponseEntity.ok().body(listDto); // está retornando um objeto
+
+    }
+
 
 
 }

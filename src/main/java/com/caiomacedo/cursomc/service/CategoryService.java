@@ -6,6 +6,9 @@ import java.util.Optional;
 import com.caiomacedo.cursomc.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.caiomacedo.cursomc.domain.Category;
@@ -45,5 +48,11 @@ public class CategoryService {
     public List<Category> findAll(){
         return cr.findAll();
     }
+    //classe responsável por páginação, que serve pra n sobrecarregar o sistema
+    public Page<Category> findPage(Integer page, Integer linesPerpage, String orderBy, String direction){
+        PageRequest pageRequest = PageRequest.of(page,linesPerpage, Sort.Direction.valueOf(direction),orderBy);
+        return cr.findAll(pageRequest);
+    }
+
 
 }
