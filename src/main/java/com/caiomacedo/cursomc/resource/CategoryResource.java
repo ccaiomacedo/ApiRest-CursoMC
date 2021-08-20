@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,14 +31,16 @@ public class CategoryResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Category obj){//esse request faz o json ser convertido para o objeto java
+    public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO objDto){//esse request faz o json ser convertido para o objeto java, antes do dto passar pra frente tem que ser validado
+        Category obj = cs.fromDTO(objDto);
         obj = cs.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//o fromCurrent... ele pega a url, e o path passa o id
         return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Category obj,@PathVariable Integer id){
+    public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO objDto,@PathVariable Integer id){
+        Category obj = cs.fromDTO(objDto);
         obj.setId(id); //seta o id que existe para o que foi passado
         obj = cs.update(obj);
         return ResponseEntity.noContent().build();//retorna que deu tudo ok, sem conteúdo
@@ -47,6 +50,8 @@ public class CategoryResource {
         cs.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    //retorna uma lista de categorias
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<CategoryDTO>> find(){
         //o responseEntity é pq ele pode retornar qualquer tipo

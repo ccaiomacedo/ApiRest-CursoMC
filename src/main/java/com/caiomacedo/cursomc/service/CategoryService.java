@@ -3,6 +3,7 @@
 import java.util.List;
 import java.util.Optional;
 
+import com.caiomacedo.cursomc.dto.CategoryDTO;
 import com.caiomacedo.cursomc.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,7 +16,8 @@ import com.caiomacedo.cursomc.domain.Category;
 import com.caiomacedo.cursomc.repository.CategoryRepository;
 import com.caiomacedo.cursomc.services.exceptions.ObjectNotFoundException;
 
-@Service
+@Service // classe de serviço serve para executar os serviços observando as regras de negócio
+//responsável pelas regras de negócio
 public class CategoryService {
     @Autowired
     private CategoryRepository cr;
@@ -52,6 +54,10 @@ public class CategoryService {
     public Page<Category> findPage(Integer page, Integer linesPerpage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page,linesPerpage, Sort.Direction.valueOf(direction),orderBy);
         return cr.findAll(pageRequest);
+    }
+
+    public Category fromDTO(CategoryDTO objDto){
+        return new Category(objDto.getId(), objDto.getNome());
     }
 
 
