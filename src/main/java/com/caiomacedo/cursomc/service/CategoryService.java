@@ -56,6 +56,7 @@ public class CategoryService {
         return cr.findAll(pageRequest);
     }
 
+    //passando as informações de categoria pra a dto
     public Category fromDTO(CategoryDTO objDto){
         return new Category(objDto.getId(), objDto.getNome());
     }
