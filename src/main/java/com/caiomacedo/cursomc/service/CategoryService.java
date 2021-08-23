@@ -34,7 +34,8 @@ public class CategoryService {
     }
 
     public Category update(Category obj){
-        find(obj.getId());
+        Category newObj = find(obj.getId());
+        updateData(newObj,obj);
         return cr.save(obj);
     }
 
@@ -61,5 +62,8 @@ public class CategoryService {
         return new Category(objDto.getId(), objDto.getNome());
     }
 
+    private void updateData(Category newObj,Category obj){
+        newObj.setNome(obj.getNome());
+    }
 
 }
