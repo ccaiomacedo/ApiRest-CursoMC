@@ -4,13 +4,16 @@ import com.caiomacedo.cursomc.domain.Category;
 import com.caiomacedo.cursomc.domain.Client;
 import com.caiomacedo.cursomc.dto.CategoryDTO;
 import com.caiomacedo.cursomc.dto.ClientDTO;
+import com.caiomacedo.cursomc.dto.ClientNewDTO;
 import com.caiomacedo.cursomc.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +31,13 @@ public class ClientResource {
         Client obj = cs.find(id);
         return ResponseEntity.ok().body(obj); // está retornando um objeto
 
+    }
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClientNewDTO objDto){//esse request faz o json ser convertido para o objeto java, antes do dto passar pra frente tem que ser validado
+        Client obj = cs.fromDTO(objDto);
+        obj = cs.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//o fromCurrent... ele pega a url, e o path passa o id
+        return ResponseEntity.created(uri).build();
     }
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@Valid @RequestBody ClientDTO objDto, @PathVariable Integer id){
