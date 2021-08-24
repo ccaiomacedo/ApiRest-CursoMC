@@ -34,7 +34,7 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	private String cpfOuCnpj;
 	private Integer tipo;
 
-	@JsonIgnore // mais pra frente tirar pra ver da colé
+	 // mais pra frente tirar pra ver da colé
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<Address> address = new ArrayList<>();
 

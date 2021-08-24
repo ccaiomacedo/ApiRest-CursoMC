@@ -48,6 +48,7 @@ public class Address implements Serializable {// serve para dizer que o objeto p
 		this.cep = cep;
 		this.client = cliente;
 		this.city = city;
+		this.setCity(city);
 	}
 
 	public Integer getId() {
@@ -98,12 +99,12 @@ public class Address implements Serializable {// serve para dizer que o objeto p
 		this.cep = cep;
 	}
 
-	public Client getCliente() {
+	public Client getClient() {
 		return client;
 	}
 
-	public void setCliente(Client cliente) {
-		this.client = cliente;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	public City getCity() {

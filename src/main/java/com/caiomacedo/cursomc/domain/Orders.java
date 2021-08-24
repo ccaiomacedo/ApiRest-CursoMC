@@ -1,6 +1,7 @@
 package com.caiomacedo.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,6 +23,7 @@ public class Orders implements Serializable {// serve para dizer que o objeto po
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") // pra n dar o erro de entidade transiente
 	private Payment pagamento;
+
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
