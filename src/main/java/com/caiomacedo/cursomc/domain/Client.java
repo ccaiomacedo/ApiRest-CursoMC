@@ -28,7 +28,7 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	private Integer id;
 	private String nome;
 
-	@Column(unique = true)
+	@Column(unique = true)//faz o banco de dados garantir que não irá haver repetição nesse campo
 	private String email;
 
 	private String cpfOuCnpj;
@@ -39,7 +39,7 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	private List<Address> address = new ArrayList<>();
 
 	@ElementCollection
-	@CollectionTable(name = "TELEFONE")
+	@CollectionTable(name = "TELEFONE")//essas anotações servem para criar outra tabela a parte dessa entidade e armazenar esse atributo
 	private Set<String> telefone = new HashSet<>();
 
 	@JsonIgnore

@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-@ClientInsert
+@ClientInsert//ela serve pra fazer a verificação do tipo, se é cpf ou cnpj
 public class ClientNewDTO implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
     private static final long serialVersionUID = 1l;
 
