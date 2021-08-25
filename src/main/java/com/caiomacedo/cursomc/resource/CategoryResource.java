@@ -35,7 +35,7 @@ public class CategoryResource {
         Category obj = cs.fromDTO(objDto);
         obj = cs.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//o fromCurrent... ele pega a url, e o path passa o id
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).build();//uri é a url no postman
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)

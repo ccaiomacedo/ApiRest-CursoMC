@@ -1,12 +1,15 @@
 package com.caiomacedo.cursomc.dto;
 
 import com.caiomacedo.cursomc.domain.Client;
+import com.caiomacedo.cursomc.service.validation.ClientUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 //Data Transfer Object
+
+@ClientUpdate
 public class ClientDTO implements Serializable {//serve para dizer que o objeto pode ser convertido em bytes
     private static final long serialVersionUID=1l;
 
