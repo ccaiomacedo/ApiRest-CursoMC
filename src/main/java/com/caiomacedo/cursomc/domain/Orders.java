@@ -48,6 +48,15 @@ public class Orders implements Serializable {// serve para dizer que o objeto po
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 
+	public double getValorTotal(){
+		double soma = 0.0;
+		for(OrderItem ip : itens){
+			soma+=ip.getSubTotal();
+		}
+		return soma;
+	}
+
+
 	public Set<OrderItem> getItens() {
 		return itens;
 	}

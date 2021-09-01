@@ -31,6 +31,11 @@ public class OrderItem implements Serializable {//serve para dizer que o objeto 
         this.preco = preco;
     }
 
+    public double getSubTotal(){
+        return (preco-desconto)*quantidade;
+    }
+
+
     @JsonIgnore
     public Orders getPedido(){
         return id.getPedido();

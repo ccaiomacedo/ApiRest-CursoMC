@@ -1,4 +1,4 @@
- package com.caiomacedo.cursomc.service;
+package com.caiomacedo.cursomc.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,47 +22,48 @@ public class CategoryService {
     @Autowired
     private CategoryRepository cr;
 
-    public Category find(Integer id){
-        Optional<Category> obj =cr.findById(id);
+    public Category find(Integer id) {
+        Optional<Category> obj = cr.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(// se n receber um objeto existente, vai retornar isso   
-        		"Objeto não encontrado! Id: "+id+" , Tipo: "+Category.class.getName()));//tipo retorna o nome da classe
+                "Objeto não encontrado! Id: " + id + " , Tipo: " + Category.class.getName()));//tipo retorna o nome da classe
     }
 
-    public Category insert(Category obj){
+    public Category insert(Category obj) {
         obj.setId(null);
         return cr.save(obj);
     }
 
-    public Category update(Category obj){
+    public Category update(Category obj) {
         Category newObj = find(obj.getId());
-        updateData(newObj,obj);
+        updateData(newObj, obj);
         return cr.save(obj);
     }
 
-    public void delete(Integer id){
+    public void delete(Integer id) {
         find(id);
         try {
             cr.deleteById(id);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possivel excluir uma categoria que possui produtos!");
         }
     }
 
-    public List<Category> findAll(){
+    public List<Category> findAll() {
         return cr.findAll();
     }
+
     //classe responsável por paginação, que serve para não sobrecarregar o sistema
-    public Page<Category> findPage(Integer page, Integer linesPerpage, String orderBy, String direction){
-        PageRequest pageRequest = PageRequest.of(page,linesPerpage, Sort.Direction.valueOf(direction),orderBy);
+    public Page<Category> findPage(Integer page, Integer linesPerpage, String orderBy, String direction) {
+        PageRequest pageRequest = PageRequest.of(page, linesPerpage, Sort.Direction.valueOf(direction), orderBy);
         return cr.findAll(pageRequest);
     }
 
     //passando as informações de categoria pra a dto
-    public Category fromDTO(CategoryDTO objDto){
+    public Category fromDTO(CategoryDTO objDto) {
         return new Category(objDto.getId(), objDto.getNome());
     }
 
-    private void updateData(Category newObj,Category obj){
+    private void updateData(Category newObj, Category obj) {
         newObj.setNome(obj.getNome());
     }
 
