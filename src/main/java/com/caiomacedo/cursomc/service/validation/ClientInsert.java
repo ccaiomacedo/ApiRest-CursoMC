@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.validation.Payload;
-
+//Essa anotação serve pra retornar uma mensagem caso haja erro de validação na hora de inserir usuario
     @Constraint(validatedBy = ClientInsertValidator.class)
     @Target({ElementType.TYPE})
     @Retention(RetentionPolicy.RUNTIME)

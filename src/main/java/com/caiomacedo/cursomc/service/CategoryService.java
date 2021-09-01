@@ -51,7 +51,7 @@ public class CategoryService {
     public List<Category> findAll(){
         return cr.findAll();
     }
-    //classe responsável por páginação, que serve pra n sobrecarregar o sistema
+    //classe responsável por paginação, que serve para não sobrecarregar o sistema
     public Page<Category> findPage(Integer page, Integer linesPerpage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page,linesPerpage, Sort.Direction.valueOf(direction),orderBy);
         return cr.findAll(pageRequest);

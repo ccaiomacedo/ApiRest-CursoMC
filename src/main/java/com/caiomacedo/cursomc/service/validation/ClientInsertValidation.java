@@ -8,12 +8,9 @@ import com.caiomacedo.cursomc.repository.ClientRepository;
 import com.caiomacedo.cursomc.resource.exception.FieldMessage;
 import com.caiomacedo.cursomc.service.validation.utils.BR;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.HandlerMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -31,16 +28,16 @@ class ClientInsertValidator implements ConstraintValidator<ClientInsert, ClientN
 
         List<FieldMessage> list = new ArrayList<>();
 
-        if(objDto.getTipo().equals(ClientType.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDto.getCpfOuCnpj())){
-            list.add(new FieldMessage("cpfOuCnpj","CPF inválido"));
+        if(objDto.getTipo().equals(ClientType.PESSOAFISICA.getCod()) && !BR.isValidCPF(objDto.getCpfOuCnpj())){//se o tipo for pessoa fisica e o cpf n for valido
+            list.add(new FieldMessage("cpfOuCnpj","CPF inválido"));//adiciona na lista FeldMessage a mensagem de erro CPF inválido
         }
-        if(objDto.getTipo().equals(ClientType.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfOuCnpj())){
-            list.add(new FieldMessage("cpfOuCnpj","CNPJ inválido"));
+        if(objDto.getTipo().equals(ClientType.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfOuCnpj())){//se o tipo for pessoa fisica e o cnpj n for valido
+            list.add(new FieldMessage("cpfOuCnpj","CNPJ inválido"));//adiciona na lista FieldMessage a mensagem de erro Cnpj inválido
         }
 
-        Client aux = cr.findByEmail(objDto.getEmail());
-        if(aux!=null){
-            list.add(new FieldMessage("email","Email já existente"));
+        Client aux = cr.findByEmail(objDto.getEmail());//pegando o email que foi passado no banco
+        if(aux!=null){//se esse email for diferente de nulo
+            list.add(new FieldMessage("email","Email já existente"));//adiciona na lista FieldMessage a mensagem de erro
         }
 
         // inclua os testes aqui, inserindo erros na lista

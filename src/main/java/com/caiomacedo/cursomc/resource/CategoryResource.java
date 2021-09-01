@@ -60,6 +60,7 @@ public class CategoryResource {
         return ResponseEntity.ok().body(listDto); // está retornando um objeto
 
     }
+    //Serve para fazer uma busca paginada por categorias
     @RequestMapping(value = "/page",method = RequestMethod.GET)
     public ResponseEntity<Page<CategoryDTO>> findPage(//o responseEntity é pq ele pode retornar qualquer tipo
             @RequestParam(value = "page",defaultValue = "0") Integer page,// o RequestParam é pra que eles sejam parametros opcionais

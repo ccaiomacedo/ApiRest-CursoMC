@@ -1,12 +1,12 @@
 package com.caiomacedo.cursomc.service.validation.utils;
 //Fonte: https://gist.github.com/adrianoluis/5043397d378ae506d87366abb0ab4e30
-
+//Classe responsável por validar o cpf e cnpj
 public class BR {
     // CPF
-    private static final int[] weightSsn = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+    private static final int[] weightSsn = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 
     // CNPJ
-    private static final int[] weightTin = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+    private static final int[] weightTin = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
 
     private static int calculate(final String str, final int[] weight) {
         int sum = 0;
