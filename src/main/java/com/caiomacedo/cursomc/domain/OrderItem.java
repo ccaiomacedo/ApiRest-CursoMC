@@ -1,6 +1,7 @@
 package com.caiomacedo.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.criterion.Order;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 public class OrderItem implements Serializable {//serve para dizer que o objeto pode ser convertido em bytes
-    private static final long serialVersionUID=1l;
+    private static final long serialVersionUID = 1l;
 
     @JsonIgnore
     @EmbeddedId//passando como chave primaria um atributo composto
@@ -19,11 +20,11 @@ public class OrderItem implements Serializable {//serve para dizer que o objeto 
     private Integer quantidade;
     private Double preco;
 
-    public OrderItem(){
+    public OrderItem() {
 
     }
 
-    public OrderItem(Orders pedido,Product produto, Double desconto, Integer quantidade, Double preco) {
+    public OrderItem(Orders pedido, Product produto, Double desconto, Integer quantidade, Double preco) {
         id.setPedido(pedido);
         id.setProduto(produto);
         this.desconto = desconto;
@@ -31,19 +32,26 @@ public class OrderItem implements Serializable {//serve para dizer que o objeto 
         this.preco = preco;
     }
 
-    public double getSubTotal(){
-        return (preco-desconto)*quantidade;
+    public double getSubTotal() {
+        return (preco - desconto) * quantidade;
     }
 
 
     @JsonIgnore
-    public Orders getPedido(){
+    public Orders getPedido() {
         return id.getPedido();
     }
 
+    public void setPedido(Orders pedido) {
+        id.setPedido(pedido);
+    }
 
-    public Product getProduto(){
+    public Product getProduto() {
         return id.getProduto();
+    }
+
+    public void setProduto(Product produto) {
+        id.setProduto(produto);
     }
 
     public OrderItemPK getId() {

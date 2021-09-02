@@ -1,16 +1,19 @@
 package com.caiomacedo.cursomc.resource;
 
+import com.caiomacedo.cursomc.domain.Category;
 import com.caiomacedo.cursomc.domain.Client;
 import com.caiomacedo.cursomc.domain.Orders;
+import com.caiomacedo.cursomc.dto.CategoryDTO;
 import com.caiomacedo.cursomc.service.ClientService;
 import com.caiomacedo.cursomc.service.OrderService;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
 
 
 @RestController
@@ -27,4 +30,12 @@ public class OrderResource {
         return ResponseEntity.ok().body(obj); // está retornando um objeto
 
     }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert(@Valid @RequestBody Orders obj){//esse request faz o json ser convertido para o objeto java, antes do dto passar pra frente tem que ser validado
+        obj = os.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//o fromCurrent... ele pega a url, e o path passa o id
+        return ResponseEntity.created(uri).build();//uri é a url no postman
+    }
+
 }

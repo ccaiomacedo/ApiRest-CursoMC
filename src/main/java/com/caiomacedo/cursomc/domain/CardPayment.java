@@ -3,7 +3,10 @@ package com.caiomacedo.cursomc.domain;
 import javax.persistence.Entity;
 
 import com.caiomacedo.cursomc.domain.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 @Entity
+@JsonTypeName("pagamentoComBoleto")
 public class CardPayment extends Payment {
 	private static final long serialVersionUID = 1l;
 	private Integer numeroDeParcelas;

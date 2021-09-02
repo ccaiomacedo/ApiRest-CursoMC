@@ -87,9 +87,6 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 		return cpfOuCnpj;
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
 
 	public void setCpfOuCnpj(String cpfOuCnpj) {
 		this.cpfOuCnpj = cpfOuCnpj;

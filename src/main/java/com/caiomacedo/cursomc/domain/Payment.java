@@ -12,9 +12,11 @@ import javax.persistence.OneToOne;
 
 import com.caiomacedo.cursomc.domain.enums.PaymentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) // forma de mapear uma herança
+@JsonTypeInfo(use= JsonTypeInfo.Id.NAME,include = JsonTypeInfo.As.PROPERTY,property ="@type")//essa anotação aqui ta dizendo que a classe pagamento vai ter um campo adicional que se chama @type
 public abstract class Payment implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
 	private static final long serialVersionUID = 1l;
 
