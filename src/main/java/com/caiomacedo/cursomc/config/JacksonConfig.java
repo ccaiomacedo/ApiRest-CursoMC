@@ -1,4 +1,4 @@
-package com.caiomacedo.cursomc;
+package com.caiomacedo.cursomc.config;
 
 import com.caiomacedo.cursomc.domain.BilletPayment;
 import com.caiomacedo.cursomc.domain.CardPayment;
