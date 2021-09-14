@@ -6,11 +6,13 @@ import org.hibernate.criterion.Order;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 @Entity
 public class OrderItem implements Serializable {//serve para dizer que o objeto pode ser convertido em bytes
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1L;
 
     @JsonIgnore
     @EmbeddedId//passando como chave primaria um atributo composto
@@ -95,7 +97,26 @@ public class OrderItem implements Serializable {//serve para dizer que o objeto 
     }
 
     @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(getProduto().getName());
+        sb.append(", Qte:");
+        sb.append(getQuantidade());
+        sb.append("Preço unitário: ");
+        sb.append(nf.format(getPreco()));
+        sb.append(", Subtotal: ");
+        sb.append(nf.format(getSubTotal()));
+        sb.append("/n");
+        return sb.toString();
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id);
     }
 }
+
+
+

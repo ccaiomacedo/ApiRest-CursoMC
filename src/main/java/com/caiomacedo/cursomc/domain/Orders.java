@@ -4,15 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
 public class Orders implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +26,6 @@ public class Orders implements Serializable {// serve para dizer que o objeto po
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") // pra n dar o erro de entidade transiente
 	private Payment pagamento;
-
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
@@ -113,6 +115,7 @@ public class Orders implements Serializable {// serve para dizer que o objeto po
 		return result;
 	}
 
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -129,5 +132,27 @@ public class Orders implements Serializable {// serve para dizer que o objeto po
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		StringBuilder sb = new StringBuilder();
+		sb.append("Pedido número: ");
+		sb.append(getId());
+		sb.append(", Instante: ");
+		sb.append(sdf.format(getInstante()));
+		sb.append(", Cliente: ");
+		sb.append(getClient().getNome());
+		sb.append(", Situação do pagamento: ");
+		sb.append(getPagamento().getEstado().getDescricao());
+		sb.append("/nDetalhes/n");
+		for(OrderItem ip : getItens()){
+			sb.append(ip.toString());
+		}
+		sb.append("Valor Total: ");
+		sb.append(nf.format(getValorTotal()));
+		return sb.toString();
+	}
+
 
 }

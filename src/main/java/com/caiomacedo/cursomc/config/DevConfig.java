@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import java.text.ParseException;
 
 @Configuration
-@Profile("dev")//estou especificando que todos os beans dessa classe só serão ativos quando o profile de teste estiver ativo em application.properties
+@Profile("dev")//estou especificando que todos os beans dessa classe só serão ativos quando o profile de dev estiver ativo em application.properties
 public class DevConfig {
 
     @Autowired

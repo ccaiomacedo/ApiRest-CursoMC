@@ -1,12 +1,7 @@
 package com.caiomacedo.cursomc.resource;
 
-import com.caiomacedo.cursomc.domain.Category;
-import com.caiomacedo.cursomc.domain.Client;
 import com.caiomacedo.cursomc.domain.Orders;
-import com.caiomacedo.cursomc.dto.CategoryDTO;
-import com.caiomacedo.cursomc.service.ClientService;
 import com.caiomacedo.cursomc.service.OrderService;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +32,4 @@ public class OrderResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();//o fromCurrent... ele pega a url, e o path passa o id
         return ResponseEntity.created(uri).build();//uri é a url no postman
     }
-
 }

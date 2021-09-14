@@ -4,7 +4,6 @@
  import com.caiomacedo.cursomc.domain.enums.PaymentStatus;
  import com.caiomacedo.cursomc.repository.*;
  import com.caiomacedo.cursomc.services.exceptions.ObjectNotFoundException;
- import org.hibernate.criterion.Order;
  import org.springframework.beans.factory.annotation.Autowired;
  import org.springframework.stereotype.Service;
  import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +28,9 @@
      @Autowired
      private OrderItemRepository oir;
 
+     @Autowired
+     private ClientService cs;
+
 
      public Orders find(Integer id){
          Optional<Orders> obj =or.findById(id);
@@ -39,6 +41,7 @@
      public Orders insert(Orders obj) {
          obj.setId(null);//Para garantir que n vai passar um id existente
          obj.setInstante(new Date());//Cria uma nova data com o instante atual
+         obj.setClient(cs.find(obj.getClient().getId()));//estou pegando do banco de dados o cliente inteiro e setando como objeto associado ao obj
          obj.getPagamento().setEstado(PaymentStatus.PENDENTE);
          obj.getPagamento().setPedido(obj);//o Pagamento tem que conhecer o pedido(associação)
          if (obj.getPagamento() instanceof BilletPayment) {//se o pagamento for igual a pagamento com boleto
@@ -54,6 +57,7 @@
              ip.setPedido(obj);//associando o item do pedido com o pedido que to inserindo
          }
          oir.saveAll(obj.getItens());
+         System.out.println(obj);
          return obj;
      }
 

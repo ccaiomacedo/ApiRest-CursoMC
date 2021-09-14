@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Client implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,6 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	}
 
 	public Client(Integer id, String nome, String email, String cpfOuCnpj, ClientType tipo) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;

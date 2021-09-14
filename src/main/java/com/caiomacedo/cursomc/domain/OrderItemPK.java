@@ -1,6 +1,5 @@
 package com.caiomacedo.cursomc.domain;
 
-import org.hibernate.criterion.Order;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -9,7 +8,7 @@ import java.io.Serializable;
 import java.util.Objects;
 @Embeddable //isso é pra dizer que essa classe é um subtipo da classe orderItem, ou seja uma classe auxiliar
 public class OrderItemPK implements Serializable {
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1L;
 
     @ManyToOne
     @JoinColumn(name ="pedido_id")

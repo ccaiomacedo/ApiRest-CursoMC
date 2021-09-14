@@ -32,7 +32,7 @@ public class ProductResource {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<Page<ProductDTO>> findPage(//o responseEntity é pq ele pode retornar qualquer tipo
                                                      @RequestParam(value = "nome",defaultValue = "") String nome,
-                                                     @RequestParam(value = "categorias",defaultValue = "") String categorias,
+                                                     @RequestParam(value = "categoria",defaultValue = "") String categorias,
                                                      @RequestParam(value = "page",defaultValue = "0") Integer page,// o RequestParam é pra que eles sejam parametros opcionais
                                                      @RequestParam(value = "linesPerPage",defaultValue = "24") Integer linesPerpage,
                                                      @RequestParam(value = "OrderBy",defaultValue = "nome")String orderBy,

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 public class Category implements Serializable {//serve para dizer que o objeto pode ser convertido em bytes
-    private static final long serialVersionUID=1l;
+    private static final long serialVersionUID=1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
