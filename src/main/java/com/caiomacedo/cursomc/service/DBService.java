@@ -101,7 +101,7 @@ public class DBService {
         sr.saveAll(Arrays.asList(est1, est2));
         cir.saveAll(Arrays.asList(c1, c2, c3));
 
-        Client cli1 = new Client(null, "Maria Silva", "maria@gmail.com", "363453453", ClientType.PESSOAFISICA);
+        Client cli1 = new Client(null, "Caio Macedo", "ccaiogatao@gmail.com", "363453453", ClientType.PESSOAFISICA);
 
         cli1.getTelefone().addAll(Arrays.asList("434242423", "42423424"));
 

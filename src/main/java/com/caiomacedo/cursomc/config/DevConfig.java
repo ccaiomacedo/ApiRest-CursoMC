@@ -1,6 +1,8 @@
 package com.caiomacedo.cursomc.config;
 
 import com.caiomacedo.cursomc.service.DBService;
+import com.caiomacedo.cursomc.service.EmailService;
+import com.caiomacedo.cursomc.service.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -26,5 +28,10 @@ public class DevConfig {
         }
         dbService.instantiateTestDatabase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService(){
+        return new SmtpEmailService();
     }
 }
