@@ -31,6 +31,9 @@
      @Autowired
      private ClientService cs;
 
+     @Autowired
+     private EmailService es;
+
 
      public Orders find(Integer id){
          Optional<Orders> obj =or.findById(id);
@@ -57,7 +60,7 @@
              ip.setPedido(obj);//associando o item do pedido com o pedido que to inserindo
          }
          oir.saveAll(obj.getItens());
-         System.out.println(obj);
+         es.sendOrderConfirmationEmail(obj);
          return obj;
      }
 
