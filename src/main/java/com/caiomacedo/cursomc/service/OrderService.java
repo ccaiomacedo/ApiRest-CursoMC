@@ -60,7 +60,7 @@
              ip.setPedido(obj);//associando o item do pedido com o pedido que to inserindo
          }
          oir.saveAll(obj.getItens());
-         es.sendOrderConfirmationEmail(obj);
+         es.sendOrderConfirmationHtmlEmail(obj);
          return obj;
      }
 
