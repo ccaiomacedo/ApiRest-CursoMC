@@ -34,6 +34,9 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	private String cpfOuCnpj;
 	private Integer tipo;
 
+	@JsonIgnore
+	private String senha;
+
 	 // mais pra frente tirar pra ver da colé
 	@OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
 	private List<Address> address = new ArrayList<>();
@@ -50,12 +53,13 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 
 	}
 
-	public Client(Integer id, String nome, String email, String cpfOuCnpj, ClientType tipo) {
+	public Client(Integer id, String nome, String email, String cpfOuCnpj, ClientType tipo,String senha) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo =(tipo==null)?null : tipo.getCod();//se o tipo for nulo atribua nulo, caso contrário atribua o código
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -121,6 +125,14 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 
 	public void setTelefone(Set<String> telefone) {
 		this.telefone = telefone;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override

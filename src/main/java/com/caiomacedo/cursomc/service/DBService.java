@@ -5,6 +5,7 @@ import com.caiomacedo.cursomc.domain.enums.ClientType;
 import com.caiomacedo.cursomc.domain.enums.PaymentStatus;
 import com.caiomacedo.cursomc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -13,32 +14,36 @@ import java.util.Arrays;
 
 @Service
 public class DBService {
-    @Autowired
-    CategoryRepository cr;
 
     @Autowired
-    ProductRepository productRepository;
+    private BCryptPasswordEncoder pe;
 
     @Autowired
-    StateRepository sr;
+    private CategoryRepository cr;
 
     @Autowired
-    CityRepository cir;
+    private ProductRepository productRepository;
 
     @Autowired
-    AddressRepository ar;
+    private StateRepository sr;
 
     @Autowired
-    ClientRepository clr;
+    private CityRepository cir;
 
     @Autowired
-    OrderRepository or;
+    private AddressRepository ar;
 
     @Autowired
-    PaymentRepository payr;
+    private ClientRepository clr;
 
     @Autowired
-    OrderItemRepository oir;
+    private OrderRepository or;
+
+    @Autowired
+    private PaymentRepository payr;
+
+    @Autowired
+    private OrderItemRepository oir;
 
     public void instantiateTestDatabase() throws ParseException {
         Category cat1 = new Category(null, "Informática");
@@ -101,7 +106,7 @@ public class DBService {
         sr.saveAll(Arrays.asList(est1, est2));
         cir.saveAll(Arrays.asList(c1, c2, c3));
 
-        Client cli1 = new Client(null, "Caio Macedo", "ccaiogatao@gmail.com", "363453453", ClientType.PESSOAFISICA);
+        Client cli1 = new Client(null, "Caio Macedo", "ccaiogatao@gmail.com", "363453453", ClientType.PESSOAFISICA,pe.encode("123"));
 
         cli1.getTelefone().addAll(Arrays.asList("434242423", "42423424"));
 
@@ -142,7 +147,6 @@ public class DBService {
         oir.saveAll(Arrays.asList(ip1, ip2, ip3));
 
     }
-
 
 
 }

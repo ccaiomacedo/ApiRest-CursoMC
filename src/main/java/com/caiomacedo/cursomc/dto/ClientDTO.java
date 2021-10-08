@@ -54,4 +54,5 @@ public class ClientDTO implements Serializable {//serve para dizer que o objeto 
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -45,11 +46,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//para assegurar que o backend não vai criar sessão de usuário
     }
 
-    @Bean
+    @Bean//para que eu possa injetar em qualquer classe do sistema
     CorsConfigurationSource corsConfigurationSource(){//se tiver um método cors definido, essas configurações serão aplicadas
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**",new CorsConfiguration().applyPermitDefaultValues());//estou permitindo acesso ao meu endPoint com as configurações básicas
         return source;
+    }
+
+    @Bean//para que eu possa injetar em qualquer classe do sistema
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 
