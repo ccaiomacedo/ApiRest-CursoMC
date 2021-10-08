@@ -3,7 +3,7 @@ package com.caiomacedo.cursomc.resource.exception;
 import java.io.Serializable;
 
 public class FieldMessage  implements Serializable {//serve para dizer que o objeto pode ser convertido em bytes
-    private static final long serialVersionUID=1l;
+    private static final long serialVersionUID=1L;
 
     private String nome;
     private String message;

@@ -65,6 +65,7 @@ public class ClientService {
     public List<Client> findAll(){
         return cr.findAll();
     }
+
     //classe responsável por páginação, que serve pra n sobrecarregar o sistema
     public Page<Client> findPage(Integer page, Integer linesPerpage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page,linesPerpage, Sort.Direction.valueOf(direction),orderBy);

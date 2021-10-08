@@ -1,7 +1,7 @@
 package com.caiomacedo.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import java.io.Serializable;
 import java.text.NumberFormat;

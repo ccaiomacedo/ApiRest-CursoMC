@@ -1,7 +1,6 @@
 package com.caiomacedo.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.criterion.Order;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

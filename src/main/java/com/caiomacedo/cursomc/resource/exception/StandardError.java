@@ -1,7 +1,7 @@
 package com.caiomacedo.cursomc.resource.exception;
 
 import java.io.Serializable;
-
+//formatado padrão de retorno de erro
 public class StandardError implements Serializable{
 	private static final long serialVersionUID = 1L;
 

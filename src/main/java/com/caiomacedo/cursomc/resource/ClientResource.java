@@ -1,8 +1,6 @@
 package com.caiomacedo.cursomc.resource;
 
-import com.caiomacedo.cursomc.domain.Category;
 import com.caiomacedo.cursomc.domain.Client;
-import com.caiomacedo.cursomc.dto.CategoryDTO;
 import com.caiomacedo.cursomc.dto.ClientDTO;
 import com.caiomacedo.cursomc.dto.ClientNewDTO;
 import com.caiomacedo.cursomc.service.ClientService;
@@ -30,7 +28,6 @@ public class ClientResource {
         //o responseEntity é pq ele pode retornar qualquer tipo
         Client obj = cs.find(id);
         return ResponseEntity.ok().body(obj); // está retornando um objeto
-
     }
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody ClientNewDTO objDto){//esse request faz o json ser convertido para o objeto java, antes do dto passar pra frente tem que ser validado
@@ -52,7 +49,7 @@ public class ClientResource {
         return ResponseEntity.noContent().build();
     }
 
-    //retorna uma lista de categorias
+    //retorna uma lista de clientes
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ClientDTO>> findAll(){
         //o responseEntity é pq ele pode retornar qualquer tipo

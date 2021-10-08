@@ -17,5 +17,5 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     @Transactional(readOnly = true)
     @Query("SELECT DISTINCT obj FROM Product obj INNER JOIN obj.categories cat WHERE obj.name LIKE %:name% AND cat IN :categories") //pra fazer a consulta com jpql no banco de dodos
-    Page<Product> findDistinctByNameContainingAndCategoriesIn(@Param("name") String name,@Param("categories") List<Category> categorias, Pageable pageRequest);
+    Page<Product> findDistinctByNameContainingAndCategoriesIn(@Param("name") String name,@Param("categories") List<Category> categories, Pageable pageRequest);
 }
