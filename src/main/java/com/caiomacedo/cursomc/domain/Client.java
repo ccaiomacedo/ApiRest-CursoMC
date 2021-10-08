@@ -5,18 +5,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.caiomacedo.cursomc.domain.enums.ClientType;
+import com.caiomacedo.cursomc.domain.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -45,12 +39,17 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	@CollectionTable(name = "TELEFONE")//essas anotações servem para criar outra tabela a parte dessa entidade e armazenar esse atributo
 	private Set<String> telefone = new HashSet<>();
 
+	@ElementCollection(fetch = FetchType.EAGER)//Pra garantir que sempre que for buscado um cliente no banco de dados, vai buscar perfis tb
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
+
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Orders> pedidos = new ArrayList<>();
 
 	public Client() {
-
+		addPerfil(Profile.CLIENTE);
 	}
 
 	public Client(Integer id, String nome, String email, String cpfOuCnpj, ClientType tipo,String senha) {
@@ -60,6 +59,7 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo =(tipo==null)?null : tipo.getCod();//se o tipo for nulo atribua nulo, caso contrário atribua o código
 		this.senha = senha;
+		addPerfil(Profile.CLIENTE);
 	}
 
 	public Integer getId() {
@@ -133,6 +133,14 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Set<Profile> getPerfis() {
+		return perfis.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());//está percorrendo a coleção e está transformando tod mundo para o tipo enumerado perfil
+	}
+
+	public void addPerfil(Profile perfil) {
+		perfis.add(perfil.getCod());
 	}
 
 	@Override

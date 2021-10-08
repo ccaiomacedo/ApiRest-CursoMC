@@ -3,6 +3,7 @@ package com.caiomacedo.cursomc.service;
 import com.caiomacedo.cursomc.domain.*;
 import com.caiomacedo.cursomc.domain.enums.ClientType;
 import com.caiomacedo.cursomc.domain.enums.PaymentStatus;
+import com.caiomacedo.cursomc.domain.enums.Profile;
 import com.caiomacedo.cursomc.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -106,17 +107,22 @@ public class DBService {
         sr.saveAll(Arrays.asList(est1, est2));
         cir.saveAll(Arrays.asList(c1, c2, c3));
 
-        Client cli1 = new Client(null, "Caio Macedo", "ccaiogatao@gmail.com", "363453453", ClientType.PESSOAFISICA,pe.encode("123"));
-
+        Client cli1 = new Client(null, "Caio Macedo", "ccaiogatao@gmail.com", "66605402022", ClientType.PESSOAFISICA,pe.encode("123"));
         cli1.getTelefone().addAll(Arrays.asList("434242423", "42423424"));
+
+        Client cli2 = new Client(null, "Ana costa", "ccaiovictor@hotmail.com", "28403689004", ClientType.PESSOAFISICA,pe.encode("123"));
+        cli2.getTelefone().addAll(Arrays.asList("989242423", "757575424"));
+        cli2.addPerfil(Profile.ADMIN);
 
         Address e1 = new Address(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
         Address e2 = new Address(null, "Avenida Matos", "105", "Sala 800", "Centro", "4234242", cli1, c2);
+        Address e3 = new Address(null, "Avenida Floriano", "2106", null, "Centro", "6454242", cli2, c2);
 
         cli1.getAddress().addAll(Arrays.asList(e1, e2));
+        cli2.getAddress().addAll(Arrays.asList(e3));
 
-        clr.saveAll(Arrays.asList(cli1));
-        ar.saveAll(Arrays.asList(e1, e2));
+        clr.saveAll(Arrays.asList(cli1,cli2));
+        ar.saveAll(Arrays.asList(e1, e2,e3));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 

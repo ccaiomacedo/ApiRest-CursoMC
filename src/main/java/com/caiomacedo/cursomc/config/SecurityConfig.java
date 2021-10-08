@@ -29,7 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
     private static final String[] PUBLIC_MATCHERS_GET = {//aqui eu vou definir quais caminhos por padrão irão estar liberados
             "/products/**",
-            "/categories/**"
+            "/categories/**",
+            "/clients/**"
+
     };
 
     @Override
