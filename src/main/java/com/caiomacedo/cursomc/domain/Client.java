@@ -12,6 +12,7 @@ import javax.persistence.*;
 import com.caiomacedo.cursomc.domain.enums.ClientType;
 import com.caiomacedo.cursomc.domain.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.id.GUIDGenerator;
 
 @Entity
 public class Client implements Serializable {// serve para dizer que o objeto pode ser convertido em bytes
@@ -136,7 +137,7 @@ public class Client implements Serializable {// serve para dizer que o objeto po
 	}
 
 	public Set<Profile> getPerfis() {
-		return perfis.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());//está percorrendo a coleção e está transformando tod mundo para o tipo enumerado perfil
+		return perfis.stream().map(x -> Profile.toEnum(x)).collect(Collectors.toSet());//está percorrendo a coleção e está transformando todu mundo para o tipo enumerado perfil
 	}
 
 	public void addPerfil(Profile perfil) {
