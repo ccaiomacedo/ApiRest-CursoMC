@@ -2,6 +2,7 @@ package com.caiomacedo.cursomc.config;
 
 
 import com.caiomacedo.cursomc.security.JWTAuthenticationFilter;
+import com.caiomacedo.cursomc.security.JWTAuthorizationFIlter;
 import com.caiomacedo.cursomc.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -66,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PUBLIC_MATCHERS).permitAll()//aqui estou dizendo que todos os caminhos que estiverem no vetor PUBLIC_MATCHERS, irão ser permitidos
                 .anyRequest().authenticated();//e para o resto exige autenticação
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+        http.addFilter(new JWTAuthorizationFIlter(authenticationManager(),jwtUtil,userDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);//para assegurar que o backend não vai criar sessão de usuário
     }
 
