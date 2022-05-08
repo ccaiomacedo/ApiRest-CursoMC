@@ -7,9 +7,12 @@ import java.util.Optional;
 import com.caiomacedo.cursomc.domain.Address;
 import com.caiomacedo.cursomc.domain.City;
 import com.caiomacedo.cursomc.domain.enums.ClientType;
+import com.caiomacedo.cursomc.domain.enums.Profile;
 import com.caiomacedo.cursomc.dto.ClientDTO;
 import com.caiomacedo.cursomc.dto.ClientNewDTO;
 import com.caiomacedo.cursomc.repository.AddressRepository;
+import com.caiomacedo.cursomc.security.UserSS;
+import com.caiomacedo.cursomc.services.exceptions.AuthorizationException;
 import com.caiomacedo.cursomc.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -37,6 +40,10 @@ public class ClientService {
      private BCryptPasswordEncoder pe;
 
     public Client find(Integer id){
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Profile.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso negado");
+        }
         Optional<Client> obj =cr.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(// se n receber um objeto existente, vai retornar isso   
         		"Objeto não encontrado! Id: "+id+" , Tipo: "+Client.class.getName()));
