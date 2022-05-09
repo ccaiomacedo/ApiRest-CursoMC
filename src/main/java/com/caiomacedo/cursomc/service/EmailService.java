@@ -1,5 +1,6 @@
 package com.caiomacedo.cursomc.service;
 
+import com.caiomacedo.cursomc.domain.Client;
 import com.caiomacedo.cursomc.domain.Orders;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
@@ -16,4 +17,6 @@ public interface EmailService {
     void sendHtmlEmail(MimeMessage msg);
 
     void sendOrderConfirmationHtmlEmail(Orders obj);
+
+    void sendNewPasswordEmail(Client client, String newPass);
 }

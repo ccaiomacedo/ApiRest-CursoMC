@@ -1,5 +1,6 @@
 package com.caiomacedo.cursomc.service;
 
+import com.caiomacedo.cursomc.domain.Client;
 import com.caiomacedo.cursomc.domain.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,23 @@ public abstract class AbstractEmailService implements EmailService{
         sm.setText(obj.toString());//corpo do email
         return sm;
     }
+
+    @Override
+    public void sendNewPasswordEmail(Client client, String newPass){
+        SimpleMailMessage sm = prepareNewPasswordEmail(client,newPass);
+        sendEmail(sm);
+    }
+
+    protected SimpleMailMessage prepareNewPasswordEmail(Client client, String newPass) {
+        SimpleMailMessage sm = new SimpleMailMessage();
+        sm.setTo(client.getEmail());//passando o email que receberá
+        sm.setFrom(sender);//estou passando o email que enviará
+        sm.setSubject("Solicitação de nova senha");//assunto do email
+        sm.setSentDate(new Date(System.currentTimeMillis()));//data do email com horário do meu servidor
+        sm.setText("Nova senha: "+newPass);//corpo do email
+        return sm;
+    }
+
 
     protected String htmlFromTemplatePedido(Orders obj){
         Context context = new Context();//
